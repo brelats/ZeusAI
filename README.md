@@ -1,16 +1,19 @@
 # ZeusAI - WhatsApp ChatGPT Integration
 
 ## Overview
-ZeusAI is a project integrating OpenAI's ChatGPT with WhatsApp. This allows users to interact with ChatGPT through WhatsApp messages.
+ZeusAI integrates OpenAI's ChatGPT with WhatsApp, allowing users to engage in advanced AI interactions through WhatsApp messages.
+
+## Key Features
+1. **Question Answering**: ZeusAI can handle a wide array of questions, ranging from general knowledge to specific inquiries, utilizing the power of ChatGPT.
+2. **Image Generation with DALL-E**: The application extends its functionality to generate images based on textual descriptions, leveraging the creative capabilities of the DALL-E model.
 
 ## Environment Variables
-To run ZeusAI, set the following environment variables:
-- `PHONE_ID` - Your WABA phone's unique identifier.
+- `PHONE_ID` - Your WhatsApp Business API phone's unique identifier.
 - `OPENAI_TOKEN` - Your OpenAI API token.
 - `WHATSAPP_TOKEN` - Token for WhatsApp integration.
 - `GRAPH_VERSION` - The version of the Facebook Graph API in use.
 
 ## Running the Application
-1. **Install Dependencies**: Run `pip install -r requirements.txt`.
-2. **Set Environment Variables**: Configure the variables as described above.
-3. **Start the Application**: Execute `python application.py`.
+1. **Install Dependencies**: `pip install -r requirements.txt`.
+2. **Set Environment Variables**: Configure as described above.
+3. **Start the Application**: `python application.py`.
