@@ -8,6 +8,7 @@ from models.response_type import RESPONSE_TYPE
 GRAPH_VERSION = os.getenv('GRAPH_VERSION')
 PHONE_ID = os.getenv('PHONE_ID')
 WHATSAPP_TOKEN = os.getenv('WHATSAPP_TOKEN')
+BACKEND_ENDPOINT = os.getenv('BACKEND_ENDPOINT')
 
 
 def is_new_message(data):
@@ -58,7 +59,7 @@ def _post_message_to_whatsapp(response_message, phone, response_type):
     elif response_type == RESPONSE_TYPE.IMAGE.value:
         data[RESPONSE_TYPE.IMAGE.value] = {'link': response_message}
     elif response_type == RESPONSE_TYPE.AUDIO.value:
-        data[RESPONSE_TYPE.AUDIO.value] = {'link': 'https://68b2-185-41-96-159.ngrok-free.app/whatsapp/audio'}
+        data[RESPONSE_TYPE.AUDIO.value] = {'link': f'{BACKEND_ENDPOINT}whatsapp/audio'}
 
     print(data)
     headers = {
