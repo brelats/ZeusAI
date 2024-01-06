@@ -3,6 +3,8 @@ import os
 import requests
 import json
 
+from models.response_type import RESPONSE_TYPE
+
 GRAPH_VERSION = os.getenv('GRAPH_VERSION')
 PHONE_ID = os.getenv('PHONE_ID')
 WHATSAPP_TOKEN = os.getenv('WHATSAPP_TOKEN')
@@ -39,7 +41,7 @@ def _extract_message_data(data):
     return None
 
 
-def send_response_message(response_message, phone, response_type="text"):
+def send_response_message(response_message, phone, response_type=RESPONSE_TYPE.TEXT.value):
     _post_message_to_whatsapp(response_message, phone, response_type)
 
 
@@ -51,16 +53,20 @@ def _post_message_to_whatsapp(response_message, phone, response_type):
         'type': response_type,
     }
 
-    if response_type == "text":
-        data['text'] = {'body': response_message}
-    else:
-        data['image'] = {'link': response_message}
+    if response_type == RESPONSE_TYPE.TEXT.value:
+        data[RESPONSE_TYPE.TEXT.value] = {'body': response_message}
+    elif response_type == RESPONSE_TYPE.IMAGE.value:
+        data[RESPONSE_TYPE.IMAGE.value] = {'link': response_message}
+    elif response_type == RESPONSE_TYPE.AUDIO.value:
+        data[RESPONSE_TYPE.AUDIO.value] = {'link': 'https://68b2-185-41-96-159.ngrok-free.app/whatsapp/audio'}
 
+    print(data)
     headers = {
         'Authorization': f'Bearer {WHATSAPP_TOKEN}',
         'Content-Type': 'application/json'
     }
     try:
-        requests.post(url, data=json.dumps(data), headers=headers)
+        response = requests.post(url, data=json.dumps(data), headers=headers)
+        print(response.reason)
     except requests.RequestException as e:
         print(f"Error al enviar mensaje: {e}")
