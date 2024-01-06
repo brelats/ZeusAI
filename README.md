@@ -12,6 +12,7 @@ ZeusAI integrates OpenAI's ChatGPT with WhatsApp, allowing users to engage in ad
 - `OPENAI_TOKEN` - Your OpenAI API token.
 - `WHATSAPP_TOKEN` - Token for WhatsApp integration.
 - `GRAPH_VERSION` - The version of the Facebook Graph API in use.
+- `BACKEND_ENDPOINT` - The base production backend URL
 
 ## Running the Application
 1. **Install Dependencies**: `pip install -r requirements.txt`.
