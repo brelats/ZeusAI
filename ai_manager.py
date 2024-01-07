@@ -34,8 +34,12 @@ def generate_response(prompt):
     return prompt_response.content, RESPONSE_TYPE.TEXT.value
 
 
-def get_messages(prompt):
-    messages = [{"role": "user", "content": prompt}]
+def get_messages(prompt, system):
+    messages = None
+    if system:
+        messages = [{"role": "system", "content": system}, {"role": "user", "content": prompt}]
+    else:
+        messages = [{"role": "user", "content": prompt}]
     return messages
 
 
@@ -45,7 +49,9 @@ def _generate_image(prompt):
 
 
 def _generate_audio(prompt):
-    response_content = generate_completion(prompt).content
+    response_content = generate_completion(prompt, system="Don't dwell on the fact that you"
+                                                          " can't sing or speak. Just give the content "
+                                                          "of the prompt without saying you can't do it.").content
     response = client.audio.speech.create(response_format="mp3", input=response_content, model="tts-1", voice="nova")
     response.stream_to_file("output.mp3")
     return response_content
@@ -71,11 +77,11 @@ def get_tools():
     ]
 
 
-def generate_completion(prompt, use_tools=False):
+def generate_completion(prompt, system=None, use_tools=False):
     response = None
     gpt_model = "gpt-4"
-    prompts = get_messages(prompt)
-
+    prompts = get_messages(prompt, system)
+    print(prompts)
     if use_tools:
         response = client.chat.completions.create(
             model=gpt_model,
